@@ -2,7 +2,7 @@
 
 # About The Project
 
-The API supports basic CRUD operations with locally created JSON files. Depending on your needs, you may host this locally on your computer or in the cloud (Vercel, Firebase, AWS, render, etc.).
+This is a straightforward messaging application that functions akin to a walkie-talkie. There's no requirement for creating an account; all you need is the correct channel number to establish a connection.
 
 # Built With
 
