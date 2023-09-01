@@ -2,7 +2,7 @@
 
 # About The Project
 
-This is a straightforward messaging application that functions akin to a walkie-talkie. There's no requirement for creating an account; all you need is the correct channel number to establish a connection.
+This is a simple messaging app that works like a walkie-talkie. You don't need an account, just know the channel number. Your messages don't get stored here.
 
 # Built With
 
