@@ -87,11 +87,12 @@ const ChatScreen = () => {
       const newMessages = responseJson.map((msg) => ({
         ms: decrypt(msg.ms),
         st:
-          decrypt(msg.us) == appId
-            ? styles.message_me
-            : decrypt(msg.us) == "*"
+          decrypt(msg.us) == "*"
             ? styles.message_ut
+            : decrypt(msg.us) == appId
+            ? styles.message_me
             : styles.message_ot,
+        us: decrypt(msg.us) == "*" ? "" : decrypt(msg.us),
         id: msg.id,
         tm: msg.tm,
       }));
