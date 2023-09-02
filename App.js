@@ -30,23 +30,32 @@ const ChatScreen = () => {
   });
   const now = new Date();
   const time = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
+  const regexIdn = /^[a-zA-Z0-9]{1,30}$/;
+  const regexChn = /^[a-zA-Z]{1,10}$/;
 
   const handleLogin = async () => {
     setLoading(true);
 
-    try {
-      setApiConfig(apiData);
-      setLoggedIn(true);
-      if (isOnymous) {
-        setAppId(username);
-      } else {
-        setAppId("*");
+    if (!regexIdn.test(username)) {
+      alert("A unique identifier should have a maximum of 10 characters.");
+    } else if (!regexChn.test(password)) {
+      alert(
+        "A unique channel code should have a maximum of 30 alphanumeric characters."
+      );
+    } else {
+      try {
+        setApiConfig(apiData);
+        setLoggedIn(true);
+        if (isOnymous) {
+          setAppId(username);
+        } else {
+          setAppId("*");
+        }
+      } catch (error) {
+        alert("Invalid Configurations!");
       }
-    } catch (error) {
-      alert("Invalid Configurations!");
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   const sendMessage = async () => {
