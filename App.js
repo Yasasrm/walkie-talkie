@@ -10,7 +10,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { RadioButton } from "react-native-paper";
-import * as fs from "expo-file-system";
+import * as FileSystem from "expo-file-system";
 
 const ChatScreen = () => {
   const [message, setMessage] = useState("");
@@ -22,6 +22,7 @@ const ChatScreen = () => {
   const [password, setPassword] = useState("");
   const [isOnymous, setIsOnymous] = useState(false);
   const [appId, setAppId] = useState("");
+  const apiData = require("./config/api.json");
   const [apiConfig, setApiConfig] = useState({
     authKey: "",
     createChannel: "",
@@ -32,28 +33,20 @@ const ChatScreen = () => {
   const time = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
 
   const handleLogin = async () => {
-    reqJson = { name: username, password: password };
     setLoading(true);
-    try {
-      (async () => {
-        const filePath = "./config/api.json";
-        const fileInfo = await fs.getInfoAsync(filePath);
 
-        if (fileInfo.exists) {
-          const data = await fs.readAsStringAsync(filePath);
-          setApiConfig(JSON.parse(data));
-          setLoggedIn(true);
-          if (isOnymous) {
-            setAppId(username);
-          }
-        } else {
-          alert("Configuration file not found!");
-        }
-      })();
+    try {
+      setApiConfig(apiData);
+      setLoggedIn(true);
+      if (isOnymous) {
+        setAppId(username);
+      }
     } catch (error) {
+      console.error(error);
       alert("Invalid Configurations!");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const sendMessage = async () => {
