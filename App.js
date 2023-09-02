@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { RadioButton } from "react-native-paper";
+import * as fs from "expo-file-system";
 
 const ChatScreen = () => {
   const [message, setMessage] = useState("");
@@ -21,6 +22,12 @@ const ChatScreen = () => {
   const [password, setPassword] = useState("");
   const [isOnymous, setIsOnymous] = useState(false);
   const [appId, setAppId] = useState("");
+  const [apiConfig, setApiConfig] = useState({
+    authKey: "",
+    createChannel: "",
+    readChannel: "",
+    deleteChannel: "",
+  });
   const now = new Date();
   const time = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
 
@@ -28,21 +35,24 @@ const ChatScreen = () => {
     reqJson = { name: username, password: password };
     setLoading(true);
     try {
-      let apiConfig;
       (async () => {
-        await fs.readFile("./config/api.json", "utf8", function (err, data) {
-          if (err) {
-            alert("Invalid Configurations!");
-          } else {
-            apiConfig = JSON.parse(data);
+        const filePath = "./config/api.json";
+        const fileInfo = await fs.getInfoAsync(filePath);
+
+        if (fileInfo.exists) {
+          const data = await fs.readAsStringAsync(filePath);
+          setApiConfig(JSON.parse(data));
+          setLoggedIn(true);
+          if (isOnymous) {
+            setAppId(username);
           }
-        });
+        } else {
+          alert("Configuration file not found!");
+        }
       })();
     } catch (error) {
-      alert("Unexpected Error!");
+      alert("Invalid Configurations!");
     }
-    setLoggedIn(true);
-    setAppId(username);
     setLoading(false);
   };
 
@@ -137,7 +147,9 @@ const ChatScreen = () => {
               <Text key={msg.id} style={msg.st}>
                 {msg.ms}
               </Text>
-              <Text style={styles.message_time}>{msg.tm}</Text>
+              <Text style={styles.message_time}>
+                {msg.tm} {msg.id}
+              </Text>
             </View>
           ))}
         </View>
