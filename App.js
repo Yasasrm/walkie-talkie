@@ -10,7 +10,6 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { RadioButton } from "react-native-paper";
-import * as FileSystem from "expo-file-system";
 
 const ChatScreen = () => {
   const [message, setMessage] = useState("");
@@ -40,9 +39,10 @@ const ChatScreen = () => {
       setLoggedIn(true);
       if (isOnymous) {
         setAppId(username);
+      } else {
+        setAppId("*");
       }
     } catch (error) {
-      console.error(error);
       alert("Invalid Configurations!");
     } finally {
       setLoading(false);
@@ -77,7 +77,12 @@ const ChatScreen = () => {
       const responseJson = await messageRs.json();
       const newMessages = responseJson.map((msg) => ({
         ms: decrypt(msg.ms),
-        st: decrypt(msg.us) == appId ? styles.message_me : styles.message_ot,
+        st:
+          decrypt(msg.us) == appId
+            ? styles.message_me
+            : decrypt(msg.us) == "*"
+            ? styles.message_ut
+            : styles.message_ot,
         id: msg.id,
         tm: msg.tm,
       }));
@@ -209,6 +214,13 @@ const styles = StyleSheet.create({
   },
   message_ot: {
     backgroundColor: "#eb9191",
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 5,
+    marginRight: 50,
+  },
+  message_ut: {
+    backgroundColor: "#bdb9b9",
     borderRadius: 10,
     padding: 10,
     marginBottom: 5,
