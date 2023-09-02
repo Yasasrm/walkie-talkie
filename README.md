@@ -7,7 +7,7 @@ This is a simple messaging app that works like a walkie-talkie. You don't need a
 # Built With
 
 <ul dir="auto">
-<li><a href="https://expressjs.com/" rel="nofollow">Express - Node js</a></li>
+<li><a href="https://expo.dev/" rel="nofollow">React native (expo)</a></li>
 </ul>
 
 # Getting Started
