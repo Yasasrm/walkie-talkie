@@ -141,7 +141,7 @@ const ChatScreen = () => {
                 {msg.ms}
               </Text>
               <Text style={styles.message_time}>
-                {msg.tm} {msg.id}
+                {msg.tm} {msg.us}
               </Text>
             </View>
           ))}
@@ -166,7 +166,7 @@ const ChatScreen = () => {
       <View style={styles.space_y} />
       <TextInput
         style={styles.input_login}
-        placeholder="Username"
+        placeholder="Identifier"
         value={username}
         onChangeText={setUsername}
       />
