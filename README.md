@@ -2,12 +2,12 @@
 
 # About The Project
 
-The API supports basic CRUD operations with locally created JSON files. Depending on your needs, you may host this locally on your computer or in the cloud (Vercel, Firebase, AWS, render, etc.).
+This is a simple messaging app that works like a walkie-talkie. You don't need an account, just know the channel number. Your messages don't get stored here.
 
 # Built With
 
 <ul dir="auto">
-<li><a href="https://expressjs.com/" rel="nofollow">Express - Node js</a></li>
+<li><a href="https://expo.dev/" rel="nofollow">React native (expo)</a></li>
 </ul>
 
 # Getting Started
