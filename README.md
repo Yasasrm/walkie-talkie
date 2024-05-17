@@ -40,9 +40,6 @@ npm install npm@latest -g
 # Example
 1] To-Do
 
-# License
-🤷‍♂️
-
 # Contact
 
 Yasas Maddunage - yasasrm@gmail.com
